@@ -15,7 +15,7 @@ from .models import SearchHistory
 logging.basicConfig(level=logging.DEBUG)
 
 def get_coordinates(city_name: str) -> Optional[tuple[Optional[float], Optional[float]]]:
-    api_key = '883103fe2eae495b8cc3574dbcd2b544'  # Замените на ваш API-ключ
+    api_key = '883103fe2eae495b8cc3574dbcd2b544'
     url = 'https://api.opencagedata.com/geocode/v1/json'
     params = {
         'q': city_name,
