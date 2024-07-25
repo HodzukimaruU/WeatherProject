@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #009688;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 1em;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: bold;
+        }
+        input[type="text"],
+        button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #009688;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #00796b;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #fafafa;
+            margin-bottom: 1em;
+            padding: 15px;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .date {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 0.5em;
+            display: block;
+        }
+        .temperature {
+            font-size: 1em;
+        }
+        a {
+            color: #009688;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Weather Forecast</h1>
+    </header>
+    <div class="container">
+        <h2><a href="{% url 'history' %}">Search History</a></h2>
+        <h3><a href="{% url 'city_stats' %}">Input City Statistics</a></h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Get Weather</button>
+        </form>
+
+        {% if form.initial.city %}
+            <p>Previously checked weather for: {{ form.initial.city }}</p>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="city" value="{{ form.initial.city }}">
+                <button type="submit">Check Weather for {{ form.initial.city }} Again</button>
+            </form>
+        {% endif %}
+
+        {% if weather_data %}
+            <h2>Weather in {{ form.cleaned_data.city }}</h2>
+            <ul>
+                {% for day in weather_data %}
+                    <li>
+                        <span class="date">{{ day.date }}</span>
+                        <p class="temperature">Temperature max: {{ day.temperature_2m_max }} °C</p>
+                        <p class="temperature">Temperature min: {{ day.temperature_2m_min }} °C</p>
+                        <p class="temperature">Precipitation: {{ day.precipitation_sum }} mm</p>
+                        <p class="temperature">Weather code: {{ day.weather_code }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather for {{ city }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #009688;
+            color: white;
+            padding: 1em 0;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #fafafa;
+            margin-bottom: 1em;
+            padding: 15px;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .date {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 0.5em;
+            display: block;
+        }
+        .temperature {
+            font-size: 1em;
+        }
+        .error {
+            color: red;
+        }
+        a {
+            color: #009688;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Weather for {{ city }}</h1>
+    </header>
+    <div class="container">
+        <ul>
+            {% for day in weather_data %}
+                <li>
+                    <span class="date">{{ day.date }}</span>
+                    <p class="temperature">Temperature max: {{ day.temperature_2m_max }} °C</p>
+                    <p class="temperature">Temperature min: {{ day.temperature_2m_min }} °C</p>
+                    <p class="temperature">Precipitation: {{ day.precipitation_sum }} mm</p>
+                    <p class="temperature">Weather code: {{ day.weather_code }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'history' %}">Back to Search History</a>
+        <a href="{% url 'index' %}">Back to Weather App</a>
+    </div>
+</body>
+</html>
