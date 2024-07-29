@@ -6,21 +6,27 @@ services:
     environment:
       POSTGRES_DB: weather_db
       POSTGRES_USER: uppa
-      POSTGRES_PASSWORD: 335511k17
+      POSTGRES_PASSWORD: < DB_PASSWORD >
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
   web:
-    build: .
-    command: python WeatherProject/manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app
+    image: uppa3/djangoweather:1.0.1
+    restart: unless-stopped
     ports:
-      - "8000:8000"
+      - "80:8000"
     depends_on:
       - db
+    environment:
+      - SECRET_KEY='< YOUR_DJANGO_KEY >'
+      - DEBUG_MODE=True
+      - DB_NAME=weather_db
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=uppa
+      - DB_PASSWORD=< DB_PASSWORD >
 
 volumes:
   postgres_data:

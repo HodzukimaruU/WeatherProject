@@ -18,4 +18,4 @@ COPY . /app/
 EXPOSE 8000
 
 # Run the application
-CMD ["python", "WeatherProject/manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["/bin/sh", "-c", "/app/migrate.sh && python ./WeatherProject/manage.py runserver 0.0.0.0:8000"]

@@ -30,9 +30,9 @@ load_dotenv()
 SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ["DEBUG_MODE"]
+DEBUG = os.environ["DEBUG_MODE"] #DEBUG = True
 
-ALLOWED_HOSTS: list[str] = ['0.0.0.0', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS: list[str] = ['*']
 
 # Application definition
 
