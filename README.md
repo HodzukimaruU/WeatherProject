@@ -63,6 +63,7 @@ docker-compose up -d
 ## Структура проекта
 
 - **WeatherProject/**
+
   - **weather/**: Основное приложение Django.
     - **migrations/**: Миграции базы данных.
     - **templates/**: Шаблоны HTML.
@@ -82,7 +83,6 @@ docker-compose up -d
     - **wsgi.py**: WSGI-конфигурация.
   - **.env**
   - **manage.py**
-- **.env.template**: Пример того что нужно в .env файле.
 - **Dockerfile**: Инструкция для создания Docker-образа.
 - **docker-compose.yaml**: Конфигурация Docker Compose.
 - **requirements.txt**: Список зависимостей Python.
